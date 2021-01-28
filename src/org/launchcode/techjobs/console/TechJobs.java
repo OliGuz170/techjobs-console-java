@@ -1,7 +1,9 @@
 package org.launchcode.techjobs.console;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -61,7 +63,9 @@ public class TechJobs {
                 String searchTerm = in.nextLine();
 
                 if (searchField.equals("all")) {
-                    System.out.println("Search all fields not yet implemented.");
+                    //replaced: System.out.println("Search all fields not yet implemented.");
+                    //instead, calling method findByValue from JobData.java
+                    printJobs(JobData.findByValue(searchTerm));
                 } else {
                     printJobs(JobData.findByColumnAndValue(searchField, searchTerm));
                 }
@@ -110,7 +114,22 @@ public class TechJobs {
 
     // Print a list of jobs
     private static void printJobs(ArrayList<HashMap<String, String>> someJobs) {
+    // Removed println and replaced it with code to implement printjobs
+    // System.out.println("printJobs is not implemented yet");
 
-        System.out.println("printJobs is not implemented yet");
+    if (someJobs.size() > 0) {
+        System.out.println("*****");
+        //Using the nested for loops to iterate through ArrayList/HashMaps (ch 3.4.1 & ch 3.6.)
+        for (int i = 0; i < someJobs.size(); i++) {
+            for (Map.Entry<String, String> fields : someJobs.get(i).entrySet()) {
+                System.out.println(fields.getKey() + ": " + fields.getValue());
+            }
+
+            System.out.println("*****");
+        }
+    //if else conditional used to prompt the user to try another search if no jobs found.
+    } else {
+            System.out.println("No jobs found. You may try a different search.");
+        }
     }
 }
